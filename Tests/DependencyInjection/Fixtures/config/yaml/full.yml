@@ -1,0 +1,17 @@
+doctrine_multi:
+    managers:
+        foo:
+            id: bar.service
+
+    auto_mapping: true
+    mappings:
+        FooBundle:
+            type:       xml
+            mapping:    true
+        BarBundle:
+            type:       xml
+            dir:        %kernel.cache_dir%
+            prefix:     prefix_val
+            alias:      alias_val
+            is_bundle:  false
+            mapping:    true

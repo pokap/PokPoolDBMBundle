@@ -1,0 +1,15 @@
+<?xml version="1.0" ?>
+
+<doctrine-multi-mapping xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <models name="Pok\Bundle\DoctrineMultiBundle\Tests\Mapping\Test">
+        <model-reference manager="document" field="id" />
+
+        <model manager="entity" name="Pok\Bundle\DoctrineMultiBundle\Tests\DependencyInjection\Fixtures\Entity\Test">
+            <field name="name" />
+        </model>
+
+        <model manager="document" name="Pok\Bundle\DoctrineMultiBundle\Tests\DependencyInjection\Fixtures\Document\Test">
+            <field name="profileContent" />
+        </model>
+    </models>
+</doctrine-multi-mapping>

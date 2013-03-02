@@ -1,0 +1,26 @@
+{
+    "name": "pokap/doctrine-multi-bundle",
+    "type": "symfony-bundle",
+    "description": "Symfony2 Multi Doctrine Repositories Bundle",
+    "keywords": ["multi", "repositories", "symfony"],
+    "homepage": "http://www.doctrine-project.org",
+    "license": "MIT",
+    "authors": [
+        {"name": "Florent Denis", "email": "dflorent.pokap@gmail.com"}
+    ],
+    "require": {
+        "php": ">=5.3.2",
+        "symfony/config": ">=2.1,<2.3-dev",
+        "symfony/dependency-injection": ">=2.1,<2.3-dev",
+        "symfony/http-kernel": ">=2.1,<2.3-dev",
+        "symfony/yaml": ">=2.1,<2.3-dev",
+        "symfony/doctrine-bridge": "2.1.*"
+    },
+    "minimum-stability": "dev",
+    "autoload": {
+        "psr-0": {
+            "Pok\\Bundle\\DoctrineMultiBundle": ""
+        }
+    },
+    "target-dir": "Pok/Bundle/DoctrineMultiBundle"
+}
