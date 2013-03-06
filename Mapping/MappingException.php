@@ -21,11 +21,6 @@ class MappingException extends BaseMappingException
         return new self("The MultiModel class '$className' field mapping misses the 'field' attribute.");
     }
 
-    public static function classIsNotAValidDocument($className)
-    {
-        return new self('Class '.$className.' is not a valid multi-model.');
-    }
-
     public static function reflectionFailure($model, \ReflectionException $previousException)
     {
         return new self('An error occurred in ' . $model, 0, $previousException);

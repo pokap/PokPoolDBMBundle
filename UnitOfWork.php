@@ -4,12 +4,19 @@ namespace Pok\Bundle\DoctrineMultiBundle;
 
 use Doctrine\Common\PropertyChangedListener;
 
+use Pok\Bundle\DoctrineMultiBundle\Persisters\ModelPersister;
+
 class UnitOfWork implements PropertyChangedListener
 {
     /**
      * @var ModelManager
      */
     private $manager;
+
+    /**
+     * @var ModelPersister[] 
+     */
+    private $persisters;
 
     /**
      * Constructor.
@@ -19,6 +26,7 @@ class UnitOfWork implements PropertyChangedListener
     public function __construct(ModelManager $manager)
     {
         $this->manager = $manager;
+        $this->persisters = array();
     }
 
     /**
@@ -116,12 +124,40 @@ class UnitOfWork implements PropertyChangedListener
     }
 
     /**
+     * Get the multi-model persister instance for the given multi-model name.
+     *
+     * @param string $modelName
+     *
+     * @return DocumentPersister
+     */
+    public function getMultiModelPersister($modelName)
+    {
+        if (!isset($this->persisters[$modelName])) {
+            $class = $this->manager->getClassMetadata($modelName);
+            $pb = $this->getPersistenceBuilder();
+            $this->persisters[$modelName] = new ModelPersister($this->manager, $this, $class);
+        }
+        return $this->persisters[$modelName];
+    }
+
+    /**
+     * Set the multi-model persister instance to use for the given multi-model .
+     *
+     * @param string         $modelName
+     * @param ModelPersister $persister
+     */
+    public function setMultiModelPersister($modelName, ModelPersister $persister)
+    {
+        $this->persisters[$modelName] = $persister;
+    }
+
+    /**
      * @param string $className
      * @param array $data
      *
      * @return object The model instance.
      */
-    public function createModel($className, $data)
+    public function createMultiModel($className, $data)
     {
         $class = $this->manager->getClassMetadata($className);
 

@@ -14,13 +14,13 @@ class ClassMetadata extends ClassMetadataInfo
     /**
      * Constructor.
      *
-     * @param string $documentName The name of the document class the new instance is used for.
+     * @param string $modelName
      */
-    public function __construct($documentName)
+    public function __construct($modelName)
     {
-        parent::__construct($documentName);
+        parent::__construct($modelName);
 
-        $this->reflClass = new \ReflectionClass($documentName);
+        $this->reflClass = new \ReflectionClass($modelName);
     }
 
     /**
@@ -32,14 +32,9 @@ class ClassMetadata extends ClassMetadataInfo
             return;
         }
 
-        $this->reflModelsClass[$field] = new \ReflectionClass($modelName); 
-        $this->reflFields[$field]      = self::retrieveReflAttr($this->reflClass, $field);
+        $this->reflFields[$field] = self::retrieveReflAttr($this->reflClass, $field);
 
-        $mapping = parent::addModel($field, $modelName, $subFields);
-
-        foreach ($mapping['fields'] as $subField) {
-            $this->reflAllFields[$field][$subField] = self::retrieveReflAttr($this->reflModelsClass[$field], $subField);
-        }
+        parent::addModel($field, $modelName, $subFields);
     }
 
     /**

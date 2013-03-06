@@ -46,7 +46,7 @@ class XmlFileLoaderTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @expectedException \InvalidArgumentException
-     * @expectedExceptionMessage Document types are not allowed.
+     * @expectedExceptionMessage MultiModel types are not allowed.
      */
     public function testDocTypeIsNotAllowed()
     {

@@ -110,9 +110,9 @@ class XmlDriver extends FileDriver
         $xmlElement = simplexml_load_file($file);
 
         if (isset($xmlElement->{'models'})) {
-            foreach ($xmlElement->{'models'} as $documentElement) {
-                $documentName = (string) $documentElement['name'];
-                $result[$documentName] = $documentElement;
+            foreach ($xmlElement->{'models'} as $modelElement) {
+                $modelName = (string) $modelElement['name'];
+                $result[$modelName] = $modelElement;
             }
         }
 

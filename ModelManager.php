@@ -221,9 +221,9 @@ class ModelManager implements ObjectManager
     /**
      * {@inheritDoc}
      */
-    public function find($modelName, $id)
+    public function find($className, $id)
     {
-        return $this->getRepository($modelName)->find($id);
+        return $this->getRepository($className)->find($id);
     }
 
     /**

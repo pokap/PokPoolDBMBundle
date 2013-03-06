@@ -9,7 +9,7 @@ use Pok\Bundle\DoctrineMultiBundle\ClassMetadata;
 class ModelPersister
 {
     /**
-     * The DocumentManager instance.
+     * The ModelManager instance.
      *
      * @var ModelManager
      */
@@ -23,7 +23,7 @@ class ModelPersister
     private $uow;
 
     /**
-     * The ClassMetadata instance for the document type being persisted.
+     * The ClassMetadata instance for the multi-model type being persisted.
      *
      * @var ClassMetadata
      */
@@ -57,10 +57,10 @@ class ModelPersister
     }
 
     /**
-     * Adds a document to the queued insertions.
-     * The document remains queued until {@link executeInserts} is invoked.
+     * Adds a multi-model to the queued insertions.
+     * The multi-model remains queued until {@link executeInserts} is invoked.
      *
-     * @param object $model The document to queue for insertion.
+     * @param object $model The multi-model to queue for insertion.
      */
     public function addInsert($model)
     {
@@ -68,7 +68,7 @@ class ModelPersister
     }
 
     /**
-     * Gets the ClassMetadata instance of the document class this persister is used for.
+     * Gets the ClassMetadata instance of the multi-model class this persister is used for.
      *
      * @return ClassMetadata
      */
@@ -78,11 +78,11 @@ class ModelPersister
     }
 
     /**
-     * Loads an document by a list of field criteria.
+     * Loads an multi-model by a list of field criteria.
      *
-     * @param array $criteria The criteria by which to load the document.
+     * @param array $criteria The criteria by which to load the multi-model
      *
-     * @return object The loaded and managed document instance or NULL if the document can not be found.
+     * @return object The loaded and managed multi-model instance or NULL if the multi-model can not be found
      */
     public function load($criteria)
     {
@@ -104,7 +104,7 @@ class ModelPersister
             $result[$manager] = $managers[$manager]->getRepository($model)->find($id);
         }
 
-        return $this->createModel($result);
+        return $this->createMultiModel($result);
     }
 
     /**
@@ -150,7 +150,7 @@ class ModelPersister
 
         $result = array();
         foreach ($ids as $id) {
-            $result[] = $this->createModel($data[$id]);
+            $result[] = $this->createMultiModel($data[$id]);
         }
 
         return $result;
@@ -160,12 +160,12 @@ class ModelPersister
      * @param array $data
      * @return object
      */
-    private function createModel(array $data)
+    private function createMultiModel(array $data)
     {
         if (empty($data)) {
             return null;
         }
 
-        return $this->uow->createModel($this->class->name, $data);
+        return $this->uow->createMultiModel($this->class->name, $data);
     }
 }

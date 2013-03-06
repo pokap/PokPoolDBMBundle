@@ -5,14 +5,9 @@ namespace Pok\Bundle\DoctrineMultiBundle\Mapping;
 class ClassMetadataInfo implements \Doctrine\Common\Persistence\Mapping\ClassMetadata
 {
     /**
-     * READ-ONLY: The name of the document class.
+     * READ-ONLY: The name of the model class.
      */
     public $name;
-
-    /**
-     * @var string
-     */
-    public $rootDocumentName;
 
     /**
      * @var string
@@ -49,12 +44,11 @@ class ClassMetadataInfo implements \Doctrine\Common\Persistence\Mapping\ClassMet
     /**
      * Constructor.
      *
-     * @param string $documentName The name of the document class the new instance is used for.
+     * @param string $modelName
      */
-    public function __construct($documentName)
+    public function __construct($modelName)
     {
-        $this->name = $documentName;
-        $this->rootDocumentName = $documentName;
+        $this->name = $modelName;
     }
 
     /**
@@ -151,7 +145,7 @@ class ClassMetadataInfo implements \Doctrine\Common\Persistence\Mapping\ClassMet
     /**
      * The name of this Model class.
      *
-     * @return string $name The Document class name.
+     * @return string $name The MultiModel class name.
      */
     public function getName()
     {
@@ -178,15 +172,15 @@ class ClassMetadataInfo implements \Doctrine\Common\Persistence\Mapping\ClassMet
     }
 
     /**
-     * Sets the document identifier of a document.
+     * Sets the model identifier of a model.
      *
-     * @param object $document
+     * @param object $model
      * @param mixed $id
      */
-    public function setIdentifierValue($document, $id)
+    public function setIdentifierValue($model, $id)
     {
         foreach ($this->reflIdFields as $object) {
-            $object->setValue($document, $id);
+            $object->setValue($model, $id);
         }
     }
 
@@ -211,7 +205,7 @@ class ClassMetadataInfo implements \Doctrine\Common\Persistence\Mapping\ClassMet
     }
 
     /**
-     * Sets the specified field to the specified value on the given document.
+     * Sets the specified field to the specified value on the given multi-model.
      *
      * @param object $model
      * @param string $manager
@@ -223,7 +217,7 @@ class ClassMetadataInfo implements \Doctrine\Common\Persistence\Mapping\ClassMet
     }
 
     /**
-     * Gets the specified field's value off the given document.
+     * Gets the specified field's value off the given model.
      *
      * @param string $manager
      * @param object $model

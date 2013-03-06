@@ -21,7 +21,7 @@ Mapping:
 
 .. code-block:: xml
 
-    <multi-model name="user" model="Model\User" repository-class="Repository\UserRepository">
+    <multi-model name="user" model="MultiModel\User" repository-class="Repository\UserRepository">
         <model-reference manager="odm" field="id" />
 
         <model manager="orm" class="Entity\User">

@@ -1,7 +1,7 @@
 <?xml version="1.0" ?>
 
 <doctrine-multi-mapping xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-    <models name="Model\User" repository-class="Repository\UserRepository">
+    <models name="MultiModel\User" repository-class="Repository\UserRepository">
         <model-reference manager="document" field="id" />
 
         <model manager="entity" name="Entity\User">
