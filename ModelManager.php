@@ -44,21 +44,18 @@ class ModelManager implements ObjectManager
     /**
      * Constructor.
      *
-     * @param array $managers
+     * @param array                $managers
+     * @param ClassMetadataFactory $metadataFactory (optional)
+     * @param string               $unitOfWorkClass (optional)
      */
-    protected function __construct(array $managers)
+    public function __construct(array $managers, ClassMetadataFactory $metadataFactory = null, $unitOfWorkClass = 'Pok\\Bundle\\DoctrineMultiBundle\\UnitOfWork')
     {
         $this->managers = $managers;
 
-        $this->metadataFactory = new ClassMetadataFactory();
+        $this->metadataFactory = $metadataFactory? : new ClassMetadataFactory();
         $this->metadataFactory->setModelManager($this);
 
-        $this->unitOfWork = new UnitOfWork($this);
-    }
-
-    public static function create(array $managers)
-    {
-        return new ModelManager($managers);
+        $this->unitOfWork = new $unitOfWorkClass($this);
     }
 
     /**
@@ -117,7 +114,6 @@ class ModelManager implements ObjectManager
         }
 
         return $repository->createQueryBuilder($alias);
-        
     }
 
     /**
