@@ -33,13 +33,13 @@ class UnitOfWork implements PropertyChangedListener
      * @param object $model
      * @param array $options
      */
-    public function flush($model = null, array $options = array())
+    public function commit($model = null, array $options = array())
     {
         $class = $this->manager->getClassMetadata(get_class($model));
         $managers = $this->manager->getManagers();
 
         foreach (array_keys($class->fieldMappings) as $managerName) {
-            $managers[$managerName]->commit($class->reflFields[$managerName]->getValue($model), $options);
+            $managers[$managerName]->flush($class->reflFields[$managerName]->getValue($model), $options);
         }
     }
 
@@ -111,15 +111,21 @@ class UnitOfWork implements PropertyChangedListener
     }
 
     /**
-     * @param string|null $modelName (optional)
+     * @param string $model (optional)
      */
-    public function clear($modelName = null)
+    public function clear($model = null)
     {
-        $class = $this->manager->getClassMetadata(get_class($model));
-        $managers = $this->manager->getManagers();
+        if (null === $model) {
+            foreach ($this->manager->getManagers() as $manager) {
+                $manager->clear(null);
+            }
+        } else {
+            $class = $this->manager->getClassMetadata(get_class($model));
+            $managers = $this->manager->getManagers();
 
-        foreach (array_keys($class->fieldMappings) as $managerName) {
-            $managers[$managerName]->clear($modelName? $class->reflFields[$managerName]->getValue($model) : null);
+            foreach (array_keys($class->fieldMappings) as $managerName) {
+                $managers[$managerName]->clear($class->reflFields[$managerName]->getValue($model));
+            }
         }
     }
 

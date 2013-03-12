@@ -46,16 +46,15 @@ class ModelManager implements ObjectManager
      *
      * @param array                $managers
      * @param ClassMetadataFactory $metadataFactory (optional)
-     * @param string               $unitOfWorkClass (optional)
      */
-    public function __construct(array $managers, ClassMetadataFactory $metadataFactory = null, $unitOfWorkClass = 'Pok\\Bundle\\DoctrineMultiBundle\\UnitOfWork')
+    public function __construct(array $managers, ClassMetadataFactory $metadataFactory = null)
     {
         $this->managers = $managers;
 
         $this->metadataFactory = $metadataFactory? : new ClassMetadataFactory();
         $this->metadataFactory->setModelManager($this);
 
-        $this->unitOfWork = new $unitOfWorkClass($this);
+        $this->unitOfWork = new UnitOfWork($this);
     }
 
     /**
@@ -267,7 +266,7 @@ class ModelManager implements ObjectManager
     private function errorIfClosed()
     {
         if ($this->closed) {
-            throw ModelException::modelManagerClosed();
+            throw new \RuntimeException('Model manager is closed.');
         }
     }
 }

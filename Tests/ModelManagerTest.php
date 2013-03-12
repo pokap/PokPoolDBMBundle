@@ -29,6 +29,24 @@ class ModelManagerTest extends \PHPUnit_Framework_TestCase
         $this->assertInstanceOf('Pok\\Bundle\\DoctrineMultiBundle\\ModelRepository', $manager->getRepository(__NAMESPACE__ . '\\ModelTest'));
 
         $this->assertTrue($manager->contains(new ModelTest));
+
+        // unitOfWork
+        $this->assertInstanceOf('Pok\\Bundle\\DoctrineMultiBundle\\UnitOfWork', $manager->getUnitOfWork());
+
+        $manager->persist(new ModelTest);
+        $manager->remove(new ModelTest);
+        $manager->refresh(new ModelTest);
+        $manager->detach(new ModelTest);
+        $manager->merge(new ModelTest);
+        $manager->flush(new ModelTest);
+
+        $manager->close();
+
+        try {
+            $manager->flush(new ModelTest);
+        } catch (\RuntimeException $e) {
+            $this->assertEquals('Model manager is closed.', $e->getMessage());
+        }
     }
 
     public function testCustomRepository()
@@ -51,7 +69,7 @@ class ModelManagerTest extends \PHPUnit_Framework_TestCase
 
 class ModelTest
 {
-    private $entity;
+    private $entity = '$ENTITYCLASS';
 }
 
 class EntityTest
@@ -66,6 +84,41 @@ class EntityManager extends \PHPUnit_Framework_TestCase
         $this->assertEquals(__NAMESPACE__ . '\\EntityTest', $entityClass);
 
         return new EntityRepository();
+    }
+
+    public function persist($entity)
+    {
+        $this->assertEquals('$ENTITYCLASS', $entity);
+    }
+
+    public function remove($entity)
+    {
+        $this->assertEquals('$ENTITYCLASS', $entity);
+    }
+
+    public function refresh($entity)
+    {
+        $this->assertEquals('$ENTITYCLASS', $entity);
+    }
+
+    public function detach($entity)
+    {
+        $this->assertEquals('$ENTITYCLASS', $entity);
+    }
+
+    public function merge($entity)
+    {
+        $this->assertEquals('$ENTITYCLASS', $entity);
+    }
+
+    public function flush($entity)
+    {
+        $this->assertEquals('$ENTITYCLASS', $entity);
+    }
+
+    public function clear($entity = null)
+    {
+        $this->assertNull($entity);
     }
 }
 
