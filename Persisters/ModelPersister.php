@@ -4,7 +4,7 @@ namespace Pok\Bundle\DoctrineMultiBundle\Persisters;
 
 use Pok\Bundle\DoctrineMultiBundle\ModelManager;
 use Pok\Bundle\DoctrineMultiBundle\UnitOfWork;
-use Pok\Bundle\DoctrineMultiBundle\ClassMetadata;
+use Pok\Bundle\DoctrineMultiBundle\Mapping\ClassMetadata;
 
 class ModelPersister
 {

@@ -52,7 +52,7 @@ class ModelManager implements ObjectManager
         $this->managers = $managers;
 
         $this->metadataFactory = $metadataFactory? : new ClassMetadataFactory();
-        $this->metadataFactory->setModelManager($this);
+        $this->metadataFactory->setManagers($managers);
 
         $this->unitOfWork = new UnitOfWork($this);
     }

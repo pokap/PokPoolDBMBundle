@@ -13,10 +13,7 @@ class ModelManagerTest extends \PHPUnit_Framework_TestCase
         $metadata->setIdentifier('entity', 'id');
 
         $metadataFactory = $this->getMock('Pok\\Bundle\\DoctrineMultiBundle\\Mapping\\ClassMetadataFactory', array('getMetadataFor', 'setModelManager'));
-        $metadataFactory
-            ->expects($this->any())
-            ->method('getMetadataFor')
-            ->will($this->returnValue($metadata));
+        $metadataFactory->expects($this->any())->method('getMetadataFor')->will($this->returnValue($metadata));
 
         $manager = new ModelManager(array('entity' => new EntityManager()), $metadataFactory);
 
