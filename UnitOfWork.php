@@ -140,7 +140,6 @@ class UnitOfWork implements PropertyChangedListener
     {
         if (!isset($this->persisters[$modelName])) {
             $class = $this->manager->getClassMetadata($modelName);
-            $pb = $this->getPersistenceBuilder();
             $this->persisters[$modelName] = new ModelPersister($this->manager, $this, $class);
         }
         return $this->persisters[$modelName];
