@@ -1,8 +1,10 @@
 DoctrineMultiBundle
 ===================
 
+[![Build Status](https://travis-ci.org/pokap/DoctrineMultiBundle.png?branch=master)](https://travis-ci.org/pokap/DoctrineMultiBundle)
+
 Usage
-~~~~~
+-------------
 
 By default, the object is initialized with values defined in the configuration:
 

@@ -30,13 +30,6 @@ class ModelPersister
     private $class;
 
     /**
-     * Array of queued inserts for the persister to insert.
-     *
-     * @var array
-     */
-    private $queuedInserts = array();
-
-    /**
      * Constructor.
      */
     public function __construct(ModelManager $manager, UnitOfWork $uow, ClassMetadata $class)
@@ -44,27 +37,6 @@ class ModelPersister
         $this->manager = $manager;
         $this->uow = $uow;
         $this->class = $class;
-    }
-
-    public function getInserts()
-    {
-        return $this->queuedInserts;
-    }
-
-    public function isQueuedForInsert($model)
-    {
-        return isset($this->queuedInserts[spl_object_hash($model)]);
-    }
-
-    /**
-     * Adds a multi-model to the queued insertions.
-     * The multi-model remains queued until {@link executeInserts} is invoked.
-     *
-     * @param object $model The multi-model to queue for insertion.
-     */
-    public function addInsert($model)
-    {
-        $this->queuedInserts[spl_object_hash($model)] = $model;
     }
 
     /**
@@ -141,7 +113,7 @@ class ModelPersister
         foreach ($models as $manager => $model) {
             $reflId = $this->class->reflIdFields[$identifier['manager']];
 
-            foreach ($managers[$manager]->getRepository($model)->findBy($ids) as $object) {
+            foreach ($managers[$manager]->getRepository($model)->findBy(array($identifier['field'] => $ids)) as $object) {
                 $id = $reflId->getValue($object);
 
                 $data[$id][$manager] = $object;
