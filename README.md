@@ -8,32 +8,34 @@ Usage
 
 By default, the object is initialized with values defined in the configuration:
 
-.. code-block:: yaml
+``` yaml
 
-    doctrine_multi:
-        managers:
-            orm:
-                id: doctrine.orm.entity_manager
+doctrine_multi:
+    managers:
+        orm:
+            id: doctrine.orm.entity_manager
 
-            odm:
-                id: doctrine_mongodb.odm.document_manager
+        odm:
+            id: doctrine_mongodb.odm.document_manager
 
-        auto_mapping: true
-        mappings:
-            AcmeDemoBundle: ~
+    auto_mapping: true
+    mappings:
+        AcmeDemoBundle: ~
+```
 
 Mapping:
 
-.. code-block:: xml
+``` xml
 
-    <multi-model name="user" model="MultiModel\User" repository-class="Repository\UserRepository">
-        <model-reference manager="odm" field="id" />
+<multi-model name="user" model="MultiModel\User" repository-class="Repository\UserRepository">
+    <model-reference manager="odm" field="id" />
 
-        <model manager="orm" class="Entity\User">
-            <field name="name" />
-        </model>
+    <model manager="orm" class="Entity\User">
+        <field name="name" />
+    </model>
 
-        <model manager="odm" class="Document\User">
-            <field name="profileContent" />
-        </model>
-    </multi-model>
+    <model manager="odm" class="Document\User">
+        <field name="profileContent" />
+    </model>
+</multi-model>
+```
