@@ -5,9 +5,9 @@ namespace Pok\Bundle\DoctrineMultiBundle\Tests\DependencyInjection;
 use Symfony\Component\Config\Definition\Processor;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 
-use Pok\Bundle\DoctrineMultiBundle\DependencyInjection\PokapDoctrineMultiExtension;
+use Pok\Bundle\DoctrineMultiBundle\DependencyInjection\PokDoctrineMultiExtension;
 
-class PokapDoctrineMultiExtensionTest extends \PHPUnit_Framework_TestCase
+class PokDoctrineMultiExtensionTest extends \PHPUnit_Framework_TestCase
 {
     public function testParameterAndAliasManagers()
     {
@@ -21,7 +21,7 @@ class PokapDoctrineMultiExtensionTest extends \PHPUnit_Framework_TestCase
             'odm' => array('id' => 'doctrine_mongodb.odm.document_manager'),
         );
 
-        $loader = new PokapDoctrineMultiExtension();
+        $loader = new PokDoctrineMultiExtension();
         $loader->load(array(array('managers' => $value)), $container);
 
         $alias = array();

@@ -1,4 +1,4 @@
-doctrine_multi:
+pok_doctrine_multi:
     managers:
         foo:
             id: bar.service

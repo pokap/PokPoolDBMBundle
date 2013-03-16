@@ -1,0 +1,15 @@
+parameters:
+    secret: ThisTokenIsNotSoSecretChangeIt
+
+framework:
+    secret:     %secret%
+    templating: { engines: ['twig'] }
+
+pok_doctrine_multi:
+    managers:
+        foo:
+            id: bar.service
+
+    auto_mapping: true
+    mappings:
+        XmlBundle: ~

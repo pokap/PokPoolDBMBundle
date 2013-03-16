@@ -71,7 +71,7 @@ class ConfigurationTest extends \PHPUnit_Framework_TestCase
     public function fullConfigurationProvider()
     {
        $yaml = Yaml::parse(__DIR__.'/Fixtures/config/yaml/full.yml');
-       $yaml = $yaml['doctrine_multi'];
+       $yaml = $yaml['pok_doctrine_multi'];
 
        return array(
            array($yaml),

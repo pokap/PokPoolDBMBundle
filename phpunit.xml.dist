@@ -17,6 +17,10 @@
         </testsuite>
     </testsuites>
 
+    <php>
+        <server name="KERNEL_DIR" value="Tests/DependencyInjection/Fixtures" />
+    </php>
+
     <filter>
         <whitelist>
             <directory>./</directory>

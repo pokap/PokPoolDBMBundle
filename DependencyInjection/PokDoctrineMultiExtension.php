@@ -7,14 +7,12 @@ use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\Loader;
 use Symfony\Bridge\Doctrine\DependencyInjection\AbstractDoctrineExtension;
 
-//use Doctrine\Common\Persistence\ObjectManager;
-
 /**
  * This is the class that loads and manages your bundle configuration
  *
  * To learn more see {@link http://symfony.com/doc/current/cookbook/bundles/extension.html}
  */
-class PokapDoctrineMultiExtension extends AbstractDoctrineExtension
+class PokDoctrineMultiExtension extends AbstractDoctrineExtension
 {
     /**
      * {@inheritDoc}

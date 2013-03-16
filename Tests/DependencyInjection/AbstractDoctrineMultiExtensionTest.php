@@ -5,7 +5,7 @@ namespace Pok\Bundle\DoctrineMultiBundle\Tests\DependencyInjection;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\ParameterBag\ParameterBag;
 
-use Pok\Bundle\DoctrineMultiBundle\DependencyInjection\PokapDoctrineMultiExtension;
+use Pok\Bundle\DoctrineMultiBundle\DependencyInjection\PokDoctrineMultiExtension;
 
 abstract class AbstractDoctrineMultiExtensionTest extends \PHPUnit_Framework_TestCase
 {
@@ -14,7 +14,7 @@ abstract class AbstractDoctrineMultiExtensionTest extends \PHPUnit_Framework_Tes
     public function testDependencyInjectionConfigurationDefaults()
     {
         $container = $this->getContainer();
-        $loader = new PokapDoctrineMultiExtension();
+        $loader = new PokDoctrineMultiExtension();
 
         $loader->load(array(array()), $container);
 
@@ -25,7 +25,7 @@ abstract class AbstractDoctrineMultiExtensionTest extends \PHPUnit_Framework_Tes
     public function testXmlBundleMappingDetection()
     {
         $container = $this->getContainer('XmlBundle');
-        $loader = new PokapDoctrineMultiExtension();
+        $loader = new PokDoctrineMultiExtension();
 
         $loader->load(array(array('mappings' => array('XmlBundle' => array()))), $container);
 

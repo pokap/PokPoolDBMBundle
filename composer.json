@@ -3,18 +3,24 @@
     "type": "symfony-bundle",
     "description": "Symfony2 Multi Doctrine Repositories Bundle",
     "keywords": ["multi", "repositories", "symfony"],
-    "homepage": "http://www.doctrine-project.org",
     "license": "MIT",
     "authors": [
         {"name": "Florent Denis", "email": "dflorent.pokap@gmail.com"}
     ],
     "require": {
         "php": ">=5.3.2",
+        "symfony/class-loader": ">=2.1,<2.3-dev",
         "symfony/config": ">=2.1,<2.3-dev",
+        "symfony/console": ">=2.1,<2.3-dev",
         "symfony/dependency-injection": ">=2.1,<2.3-dev",
+        "symfony/finder": ">=2.1,<2.3-dev",
         "symfony/http-kernel": ">=2.1,<2.3-dev",
         "symfony/yaml": ">=2.1,<2.3-dev",
-        "symfony/doctrine-bridge": "2.1.*"
+        "symfony/doctrine-bridge": "2.1.*",
+        "symfony/framework-bundle": ">=2.1,<2.3-dev"
+    },
+    "require-dev": {
+        "symfony/twig-bundle": ">=2.1,<2.3-dev",
     },
     "minimum-stability": "dev",
     "autoload": {
@@ -22,5 +28,10 @@
             "Pok\\Bundle\\DoctrineMultiBundle": ""
         }
     },
-    "target-dir": "Pok/Bundle/DoctrineMultiBundle"
+    "target-dir": "Pok/Bundle/DoctrineMultiBundle",
+    "extra": {
+        "branch-alias": {
+            "dev-master": "1.0-dev"
+        }
+    }
 }
