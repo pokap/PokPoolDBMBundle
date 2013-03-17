@@ -17,6 +17,11 @@ class Test
         return $this->id;
     }
 
+    /**
+     * @param string $profileContent
+     *
+     * @return Test
+     */
     public function setProfileContent($profileContent)
     {
         $this->profileContent = (string) $profileContent;

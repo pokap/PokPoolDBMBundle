@@ -8,6 +8,13 @@ use Symfony\Component\Filesystem\Filesystem;
 
 use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
 
+use Pok\Bundle\DoctrineMultiBundle\Util\Reflector;
+
+/**
+ * Generate multi-model with models definitions.
+ *
+ * @author Florent Denis <dflorent.pokap@gmail.com>
+ */
 class GenerateMultiModelCommand extends ContainerAwareCommand
 {
     /**
@@ -30,24 +37,29 @@ class GenerateMultiModelCommand extends ContainerAwareCommand
         $manager  = $this->getModelManager();
         $metadata = $manager->getMetadataDriverImpl();
 
+        $dialog = $this->getHelperSet()->get('dialog');
+
         foreach ($metadata->getAllClassNames() as $className) {
             $data       = $this->getElement($metadata->getDrivers(), $className);
             $parameters = $this->buildParameters($data);
 
             $filename = sprintf('%s%s%s.php', $data['dir'], DIRECTORY_SEPARATOR, $parameters['model_name']);
 
-            if ($filesystem->exists($filename)) {
-                // todo implement ask helper confirm
+            if ($filesystem->exists($filename) && !$dialog->askConfirmation($output, sprintf('<question>MultiModel "%s" already exists, Do you want to overwrite it? (y,N) </question>', $parameters['model_name']), false)) {
+                continue;
             }
 
             if (!$filesystem->exists($data['dir'])) {
                 $filesystem->mkdir($data['dir']);
             }
 
-            $made = $this->getTimedTwigEngine()->render($this->getTemplate(), $parameters);
+            $state = file_put_contents($filename, $this->getTimedTwigEngine()->render($this->getTemplate(), $parameters));
 
-            //file_put_contents($filename, $made);
+            $output->writeln(sprintf('%s %s', ($state ? 'Create' : '<error>Failed</error>'), $filename));
         }
+
+        $output->writeln('');
+        $output->writeln('<info>Done.</info>');
     }
 
     /**
@@ -59,23 +71,48 @@ class GenerateMultiModelCommand extends ContainerAwareCommand
      */
     protected function buildParameters(array $data)
     {
+        $managers = array();
+        foreach ($data['models'] as $model) {
+
+            $managers[$model['manager']] = array(
+                'namespace' => '\\' . $model['class'],
+                'methods'   => array()
+            );
+
+            if ($data['identifier']['manager'] === $model['manager']) {
+                $model['fields'][] = $data['identifier']['field'];
+            }
+
+            $pattern = self::patternDeclared($model['fields']);
+
+            $refl = new \ReflectionClass($model['class']);
+            foreach ($refl->getMethods() as $method) {
+                if (!$method->isPublic() || $method->isStatic() || $method->isConstructor() || $method->isDestructor() || $method->isAbstract()) {
+                    continue;
+                }
+
+                preg_match($pattern, $method->getName(), $matches);
+                if (empty($matches)) {
+                    continue;
+                }
+
+                $arg = array(
+                    'comment'   => $method->getDocComment(),
+                    'name'      => $method->getName(),
+                    'type'      => in_array($matches[1], array('get','is','has','all')) ? 'getter' : 'setter',
+                    'arguments' => Reflector::parameters($method->getParameters())
+                );
+
+                $managers[$model['manager']]['methods'][] = $arg;
+            }
+        }
+
         $occ = strrpos($data['class'], '\\');
-        
+
         return array(
             'model_namespace' => substr($data['class'], 0, $occ),
             'model_name'      => substr($data['class'], $occ + 1),
-            'managers'        => array(
-                'entity' => array(
-                'namespace' => 'test\\test',
-                'methods'   => array(
-                        array(
-                            'type'      => 'setter',
-                            'name'      => 'setName',
-                            'arguments' => array('$name')
-                        )
-                    )
-                )
-            )
+            'managers'        => $managers
         );
     }
 
@@ -103,6 +140,28 @@ class GenerateMultiModelCommand extends ContainerAwareCommand
         return $this->getContainer()->getParameter('pok.doctrine_multi.command.view');
     }
 
+    /**
+     * @param array $fields
+     *
+     * @return string
+     */
+    private static function patternDeclared(array $fields)
+    {
+        foreach ($fields as $i => $field) {
+            $fields[$i] = ucfirst($field);
+        }
+
+        return sprintf('`^([a-z]+)(%s)$`', implode('|', $fields));
+    }
+
+    /**
+     * @param \Doctrine\Common\Persistence\Mapping\Driver\MappingDriver[] $drivers
+     * @param string                                                      $className
+     *
+     * @return array
+     *
+     * @throws \RuntimeException
+     */
     private function getElement(array $drivers, $className)
     {
         foreach ($drivers as $namespace => $driver) {
@@ -118,6 +177,11 @@ class GenerateMultiModelCommand extends ContainerAwareCommand
         throw new \RuntimeException(sprintf('Invalid drivers with "%s".', $className));
     }
 
+    /**
+     * @param \SimpleXMLElement $xml
+     *
+     * @return array
+     */
     private function getMetadata(\SimpleXMLElement $xml)
     {
         $result = array();
@@ -130,12 +194,39 @@ class GenerateMultiModelCommand extends ContainerAwareCommand
         );
 
         foreach ($xml->model as $model) {
-            $result['models'][] = (string) $model['class'];
+            $definition = array(
+                'class'   => (string) $model['class'],
+                'manager' => (string) $model['manager'],
+                'fields'  => array()
+            );
+
+            foreach ($model as $field) {
+                if ('field' !== $field->getName()) {
+                    continue;
+                }
+
+                foreach ($field->attributes() as $name => $value) {
+                    if ('name' !== $name) {
+                        continue;
+                    }
+
+                    $definition['fields'][] = (string) $value[0];
+                }
+            }
+
+            $result['models'][] = $definition;
         }
 
         return $result;
     }
 
+    /**
+     * @param array $prefixes
+     *
+     * @return string
+     *
+     * @throws \RuntimeException
+     */
     private function getDirectory(array $prefixes)
     {
         foreach ($prefixes as $dir => $namespace) {
@@ -143,7 +234,7 @@ class GenerateMultiModelCommand extends ContainerAwareCommand
 
             $namespace = substr($namespace, strrpos($namespace, 'Bundle\\') + 7);
 
-            return $dir . $namespace;
+            return $dir . str_replace('\\', DIRECTORY_SEPARATOR, $namespace);
         }
 
         throw new \RuntimeException('Unknown dir class.');

@@ -1,8 +1,6 @@
 DoctrineMultiBundle
 ===================
 
-* THIS IS A WORK IN PROGRESS *
-
 **Requires** at least *PHP 5.3.3* with Symfony 2 library. Compatible PHP 5.4 too.
 
 [![Build Status](https://travis-ci.org/pokap/DoctrineMultiBundle.png?branch=master)](https://travis-ci.org/pokap/DoctrineMultiBundle)
