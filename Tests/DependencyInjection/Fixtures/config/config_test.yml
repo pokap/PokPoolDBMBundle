@@ -2,13 +2,21 @@ parameters:
     secret: ThisTokenIsNotSoSecretChangeIt
 
 framework:
+    test:       ~
     secret:     %secret%
+    router:
+        resource: "%kernel.root_dir%/config/routing.yml"
     templating: { engines: ['twig'] }
+
+twig:
+    debug: %kernel.debug%
 
 pok_doctrine_multi:
     managers:
-        foo:
-            id: bar.service
+        entity:
+            id: xml.fake.entity.manager
+        document:
+            id: xml.fake.document.manager
 
     auto_mapping: true
     mappings:

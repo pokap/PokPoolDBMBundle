@@ -106,16 +106,8 @@ class XmlDriver extends FileDriver
      */
     protected function loadMappingFile($file)
     {
-        $result = array();
         $xmlElement = simplexml_load_file($file);
 
-        if (isset($xmlElement->{'models'})) {
-            foreach ($xmlElement->{'models'} as $modelElement) {
-                $modelName = (string) $modelElement['name'];
-                $result[$modelName] = $modelElement;
-            }
-        }
-
-        return $result;
+        return array((string) $xmlElement['model'] => $xmlElement);
     }
 }

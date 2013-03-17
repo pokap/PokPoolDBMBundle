@@ -1,3 +1,6 @@
 nbproject
-composer.lock
 vendor
+
+Tests/DependencyInjection/Fixtures/cache
+Tests/DependencyInjection/Fixtures/logs
+Tests/DependencyInjection/Fixtures/Bundles/XmlBundle/MultiModel

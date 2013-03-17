@@ -3,6 +3,7 @@
 namespace Pok\Bundle\DoctrineMultiBundle;
 
 use Doctrine\Common\Persistence\ObjectManager;
+use Doctrine\Common\Persistence\Mapping\Driver\MappingDriverChain;
 
 use Pok\Bundle\DoctrineMultiBundle\Mapping\ClassMetadataFactory;
 
@@ -14,6 +15,11 @@ class ModelManager implements ObjectManager
      * @var ClassMetadataFactory
      */
     private $metadataFactory;
+
+    /**
+     * @var MappingDriverChain 
+     */
+    private $metadataDriverImpl;
 
     /**
      * The ModelRepository instances.
@@ -52,7 +58,7 @@ class ModelManager implements ObjectManager
         $this->managers = $managers;
 
         $this->metadataFactory = $metadataFactory? : new ClassMetadataFactory();
-        $this->metadataFactory->setManagers($managers);
+        $this->metadataFactory->setManager($this);
 
         $this->unitOfWork = new UnitOfWork($this);
     }
@@ -63,6 +69,33 @@ class ModelManager implements ObjectManager
     public function getMetadataFactory()
     {
         return $this->metadataFactory;
+    }
+
+    /**
+     * @param MappingDriverChain $metadataDriver
+     */
+    public function setMetadataDriverImpl(MappingDriverChain $driverChain)
+    {
+        $this->metadataDriverImpl = $driverChain;
+    }
+
+    /**
+     * @return MappingDriverChain
+     */
+    public function getMetadataDriverImpl()
+    {
+        return $this->metadataDriverImpl;
+    }
+
+    /**
+     * Sets manager instance.
+     *
+     * @param string $name
+     * @param object $instance
+     */
+    public function setManager($name, $instance)
+    {
+        $this->managers[$name] = $instance;
     }
 
     /**

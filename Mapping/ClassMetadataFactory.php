@@ -8,13 +8,14 @@ use Doctrine\Common\Persistence\Mapping\ReflectionService;
 
 use Pok\Bundle\DoctrineMultiBundle\Mapping\ClassMetadata;
 use Pok\Bundle\DoctrineMultiBundle\Mapping\MappingException;
+use Pok\Bundle\DoctrineMultiBundle\ModelManager;
 
 class ClassMetadataFactory extends AbstractClassMetadataFactory
 {
-    protected $cacheSalt = "\$DOCTRINEMULTICLASSMETADATA";
+    protected $cacheSalt = "\$POKDOCTRINEMULTICLASSMETADATA";
 
-    /** @var array */
-    private $managers;
+    /** @var ModelManager */
+    private $manager;
 
     /** @var \Doctrine\Common\Persistence\Mapping\Driver\MappingDriver The used metadata driver. */
     private $driver;
@@ -22,19 +23,11 @@ class ClassMetadataFactory extends AbstractClassMetadataFactory
     private $namespace;
 
     /**
-     * @param array
+     * @param ModelManager $manager
      */
-    public function setManagers($managers)
+    public function setManager(ModelManager $manager)
     {
-        $this->managers = $managers;
-    }
-
-    /**
-     * @param \Doctrine\Common\Persistence\Mapping\Driver\FileDriver $driver
-     */
-    public function setDriver($driver)
-    {
-        $this->driver = $driver;
+        $this->manager = $manager;
     }
 
     public function setNamespace($namespace)
@@ -48,6 +41,7 @@ class ClassMetadataFactory extends AbstractClassMetadataFactory
      */
     protected function initialize()
     {
+        $this->driver = $this->manager->getMetadataDriverImpl();
         $this->initialized = true;
     }
 

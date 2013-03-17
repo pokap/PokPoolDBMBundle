@@ -13,8 +13,8 @@ class PokDoctrineMultiExtensionTest extends \PHPUnit_Framework_TestCase
     {
         $container = new ContainerBuilder();
 
-        $container->set('doctrine.orm.entity_manager', null);
-        $container->set('doctrine_mongodb.odm.document_manager', null);
+        $container->set('doctrine.orm.entity_manager', new FakeService());
+        $container->set('doctrine_mongodb.odm.document_manager', new FakeService());
 
         $value = array(
             'orm' => array('id' => 'doctrine.orm.entity_manager'),
@@ -32,4 +32,8 @@ class PokDoctrineMultiExtensionTest extends \PHPUnit_Framework_TestCase
 
         $this->assertEquals($alias, $container->getParameter('pok.doctrine_multi.managers'));
     }
+}
+
+class FakeService
+{
 }

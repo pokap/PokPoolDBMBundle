@@ -6,10 +6,15 @@
 
     <parameters>
         <parameter key="pok.doctrine_multi.manager.class">Pok\Bundle\DoctrineMultiBundle\ModelManager</parameter>
-        <parameter key="pok.doctrine_multi.repository_collector.class">Pok\Bundle\DoctrineMultiBundle\RelationRepositoryCollection</parameter>
+        <parameter key="pok.doctrine_multi.command.view">PokDoctrineMultiBundle:Command:multi_model.php.twig</parameter>
+
         <!-- metadata -->
         <parameter key="pok.doctrine_multi.metadata.driver_chain.class">Doctrine\Common\Persistence\Mapping\Driver\MappingDriverChain</parameter>
         <parameter key="pok.doctrine_multi.metadata.xml.class">Pok\Bundle\DoctrineMultiBundle\Mapping\Driver\XmlDriver</parameter>
+
+        <!-- directories -->
+        <parameter key="pok.doctrine_multi.mapping_dirs" type="collection"></parameter>
+        <parameter key="pok.doctrine_multi.xml_mapping_dirs">%pok.doctrine_multi.mapping_dirs%</parameter>
     </parameters>
 
     <services>
@@ -20,7 +25,7 @@
         </service>
 
         <service id="pok.doctrine_multi.manager" class="%pok.doctrine_multi.manager.class%">
-            <argument type="collection">%pok.doctrine_multi.managers%</argument>
+            <argument type="collection" />
         </service>
     </services>
 

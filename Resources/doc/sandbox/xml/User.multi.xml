@@ -1,15 +1,13 @@
 <?xml version="1.0" ?>
 
-<doctrine-multi-mapping xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-    <models name="MultiModel\User" repository-class="Repository\UserRepository">
-        <model-reference manager="document" field="id" />
+<multi-model model="MultiModel\User" repository-class="Repository\UserRepository">
+    <model-reference manager="document" field="id" />
 
-        <model manager="entity" name="Entity\User">
-            <field name="name" />
-        </model>
+    <model manager="entity" name="Entity\User">
+        <field name="name" />
+    </model>
 
-        <model manager="document" name="Document\User">
-            <field name="profileContent" />
-        </model>
-    </models>
-</doctrine-multi-mapping>
+    <model manager="document" name="Document\User">
+        <field name="profileContent" />
+    </model>
+</multi-model>

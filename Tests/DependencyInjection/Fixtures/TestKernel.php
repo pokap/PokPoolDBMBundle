@@ -3,15 +3,18 @@
 use Symfony\Component\HttpKernel\Kernel;
 use Symfony\Component\Config\Loader\LoaderInterface;
 
+use Pok\Bundle\DoctrineMultiBundle as Pok;
+
 class TestKernel extends Kernel
 {
     public function registerBundles()
     {
         $bundles = array(
             new Symfony\Bundle\FrameworkBundle\FrameworkBundle(),
- 
-            new Pok\Bundle\DoctrineMultiBundle\PokDoctrineMultiBundle(),
-            new Pok\Bundle\DoctrineMultiBundle\Tests\DependencyInjection\Fixtures\Bundles\XmlBundle\XmlBundle(),
+            new Symfony\Bundle\TwigBundle\TwigBundle(),
+
+            new Pok\Tests\DependencyInjection\Fixtures\Bundles\XmlBundle\XmlBundle(),
+            new Pok\PokDoctrineMultiBundle(),
         );
 
         return $bundles;

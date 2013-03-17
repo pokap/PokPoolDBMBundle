@@ -18,7 +18,7 @@ class Configuration implements ConfigurationInterface
     public function getConfigTreeBuilder()
     {
         $treeBuilder = new TreeBuilder();
-        $rootNode = $treeBuilder->root('doctrine_multi');
+        $rootNode = $treeBuilder->root('pok_doctrine_multi');
 
         $rootNode
             ->children()

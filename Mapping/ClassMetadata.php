@@ -43,7 +43,7 @@ class ClassMetadata extends ClassMetadataInfo
     public function setIdentifier($manager, $field)
     {
         if (empty($this->fieldMappings)) {
-            throw new \RuntimeException('ClassMetadata::setIdentifier must be call after addModel.');
+            throw new \RuntimeException('ClassMetadata::setIdentifier must to be call after addModel.');
         }
 
         foreach ($this->fieldMappings as $model) {

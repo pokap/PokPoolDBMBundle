@@ -1,0 +1,15 @@
+<?xml version="1.0" ?>
+
+<multi-model model="Pok\Bundle\DoctrineMultiBundle\Tests\DependencyInjection\Fixtures\Bundles\XmlBundle\MultiModel\Test">
+
+    <model-reference manager="entity" field="id" />
+
+    <model manager="entity" class="Pok\Bundle\DoctrineMultiBundle\Tests\DependencyInjection\Fixtures\Bundles\XmlBundle\Entity\Test">
+        <field name="name" />
+    </model>
+
+    <model manager="document" class="Pok\Bundle\DoctrineMultiBundle\Tests\DependencyInjection\Fixtures\Bundles\XmlBundle\Document\Test">
+        <field name="profileContent" />
+    </model>
+
+</multi-model>

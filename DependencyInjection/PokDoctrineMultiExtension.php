@@ -3,6 +3,7 @@
 namespace Pok\Bundle\DoctrineMultiBundle\DependencyInjection;
 
 use Symfony\Component\DependencyInjection\ContainerBuilder;
+use Symfony\Component\DependencyInjection\Reference;
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\Loader;
 use Symfony\Bridge\Doctrine\DependencyInjection\AbstractDoctrineExtension;
@@ -57,6 +58,13 @@ class PokDoctrineMultiExtension extends AbstractDoctrineExtension
         }
 
         $container->setParameter($this->getObjectManagerElementName('managers'), $managers);
+
+        $manager = $container->getDefinition('pok.doctrine_multi.manager');
+        foreach ($managers as $name => $service) {
+            $manager->addMethodCall('setManager', array($name, new Reference($service)));
+        }
+
+        $manager->addMethodCall('setMetadataDriverImpl', array(new Reference(sprintf('pok.doctrine_multi.%s_metadata_driver', $config['name']))));
     }
 
     /**
