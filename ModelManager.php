@@ -163,6 +163,8 @@ class ModelManager implements ObjectManager
 
     /**
      * @param object $model The document instance to remove.
+     *
+     * @throws \InvalidArgumentException When model is not an object
      */
     public function remove($model)
     {
@@ -175,6 +177,8 @@ class ModelManager implements ObjectManager
 
     /**
      * @param object $model The document to refresh.
+     *
+     * @throws \InvalidArgumentException When model is not an object
      */
     public function refresh($model)
     {
@@ -187,6 +191,8 @@ class ModelManager implements ObjectManager
 
     /**
      * @param object $model The document to detach.
+     *
+     * @throws \InvalidArgumentException When model is not an object
      */
     public function detach($model)
     {
@@ -199,6 +205,8 @@ class ModelManager implements ObjectManager
     /**
      * @param object $model The detached document to merge into the persistence context.
      * @return object The managed copy of the document.
+     *
+     * @throws \InvalidArgumentException When model is not an object
      */
     public function merge($model)
     {
@@ -236,6 +244,8 @@ class ModelManager implements ObjectManager
     /**
      * @param object $model
      * @param array $options
+     *
+     * @throws \InvalidArgumentException When model is not an object
      */
     public function flush($model = null, array $options = array())
     {
@@ -255,6 +265,8 @@ class ModelManager implements ObjectManager
     }
 
     /**
+     * Clears the managers of ModelManager. All models that are currently managed in this manager become detached.
+     *
      * @param string|null $modelName
      */
     public function clear($modelName = null)
@@ -269,10 +281,13 @@ class ModelManager implements ObjectManager
     }
 
     /**
-     * Determines whether a document instance is managed in this DocumentManager.
+     * Determines whether a model instance is managed in this ModelManager.
      *
      * @param object $model
-     * @return boolean TRUE if this DocumentManager currently manages the given document, FALSE otherwise.
+     *
+     * @return boolean TRUE if this ModelManager currently manages the given document, FALSE otherwise.
+     *
+     * @throws \InvalidArgumentException When model is not an object
      */
     public function contains($model)
     {

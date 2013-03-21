@@ -23,7 +23,7 @@ class ModelPersisterTest extends \PHPUnit_Framework_TestCase
 
         $this->assertInstanceOf('Pok\\Bundle\\DoctrineMultiBundle\\Mapping\\ClassMetadata', $persisters->getClassMetadata());
 
-        $model = $persisters->load(array('id' => 1));
+        $model = $persisters->load(1);
         $this->assertInstanceOf(__NAMESPACE__ . '\\ModelTest', $model);
         $this->assertInstanceOf(__NAMESPACE__ . '\\EntityTest', $model->entity);
         $this->assertEquals(1, $model->entity->id);
@@ -71,11 +71,11 @@ class DocumentManager {
 class EntityRepository {
     public static $count = 0;
 
-    public function findOneBy(array $criteria) {
+    public function find($id) {
         self::$count++;
 
         $entity = new EntityTest;
-        $entity->id = $criteria['id'];
+        $entity->id = $id;
 
         return $entity;
     }

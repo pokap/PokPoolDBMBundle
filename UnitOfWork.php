@@ -35,11 +35,17 @@ class UnitOfWork implements PropertyChangedListener
      */
     public function commit($model = null, array $options = array())
     {
-        $class = $this->manager->getClassMetadata(get_class($model));
-        $managers = $this->manager->getManagers();
+        if (null === $model) {
+            foreach ($this->manager->getManagers() as $manager) {
+                $manager->flush();
+            }
+        } else {
+            $class = $this->manager->getClassMetadata(get_class($model));
+            $managers = $this->manager->getManagers();
 
-        foreach (array_keys($class->fieldMappings) as $managerName) {
-            $managers[$managerName]->flush($class->reflFields[$managerName]->getValue($model), $options);
+            foreach (array_keys($class->fieldMappings) as $managerName) {
+                $managers[$managerName]->flush($class->reflFields[$managerName]->getValue($model), $options);
+            }
         }
     }
 
