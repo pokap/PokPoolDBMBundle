@@ -32,11 +32,11 @@ Mapping:
 <multi-model model="MultiModel\User" repository-class="Repository\UserRepository">
     <model-reference manager="odm" field="id" />
 
-    <model manager="orm" class="Entity\User">
+    <model manager="orm" name="Entity\User">
         <field name="name" />
     </model>
 
-    <model manager="odm" class="Document\User">
+    <model manager="odm" name="Document\User">
         <field name="profileContent" />
     </model>
 </multi-model>

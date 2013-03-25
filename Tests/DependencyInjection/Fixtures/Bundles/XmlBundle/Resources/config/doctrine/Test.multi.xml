@@ -4,11 +4,11 @@
 
     <model-reference manager="entity" field="id" />
 
-    <model manager="entity" class="Pok\Bundle\DoctrineMultiBundle\Tests\DependencyInjection\Fixtures\Bundles\XmlBundle\Entity\Test">
+    <model manager="entity" name="Pok\Bundle\DoctrineMultiBundle\Tests\DependencyInjection\Fixtures\Bundles\XmlBundle\Entity\Test">
         <field name="name" />
     </model>
 
-    <model manager="document" class="Pok\Bundle\DoctrineMultiBundle\Tests\DependencyInjection\Fixtures\Bundles\XmlBundle\Document\Test">
+    <model manager="document" name="Pok\Bundle\DoctrineMultiBundle\Tests\DependencyInjection\Fixtures\Bundles\XmlBundle\Document\Test">
         <field name="profileContent" />
     </model>
 

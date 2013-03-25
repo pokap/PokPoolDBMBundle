@@ -71,11 +71,11 @@ class DocumentManager {
 class EntityRepository {
     public static $count = 0;
 
-    public function find($id) {
+    public function findOneBy($criteria) {
         self::$count++;
 
         $entity = new EntityTest;
-        $entity->id = $id;
+        $entity->id = $criteria['id'];
 
         return $entity;
     }

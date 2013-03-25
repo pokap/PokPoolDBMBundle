@@ -56,10 +56,14 @@ class ModelPersister
      *
      * @return object The loaded and managed multi-model instance or NULL if the multi-model can not be found
      */
-    public function load($id)
+    public function load($criteria)
     {
         $managers = $this->manager->getManagers();
         $identifier = $this->class->getIdentifier();
+
+        if (!is_array($criteria)) {
+            $criteria = array($identifier['field'] => $criteria);
+        }
 
         $models = array();
         foreach ($this->class->fieldMappings as $manager => $reflClass) {
@@ -67,7 +71,7 @@ class ModelPersister
         }
 
         $result = array();
-        $result[$identifier['manager']] = $managers[$identifier['manager']]->getRepository($models[$identifier['manager']])->find($id);
+        $result[$identifier['manager']] = $managers[$identifier['manager']]->getRepository($models[$identifier['manager']])->findOneBy($criteria);
         unset($models[$identifier['manager']]);
 
         $id = $this->class->reflIdFields[$identifier['manager']]->getValue($result[$identifier['manager']]);

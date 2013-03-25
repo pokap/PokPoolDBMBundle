@@ -139,14 +139,15 @@ class GenerateMultiModelCommandTest extends WebTestCase
         $method->setAccessible(true);
 
         try {
-            $method->invoke(new GenerateMultiModelCommand(), array());
+            $method->invoke(new GenerateMultiModelCommand(), array(), '');
         } catch (\RuntimeException $e) {
             $this->assertEquals('Unknown dir class.', $e->getMessage());
         }
 
         $this->assertEquals('/path/to/vendor/package/MyBundle/MultiModel/SubModel', $method->invoke(new GenerateMultiModelCommand(), array(
-            '/path/to/vendor/package/MyBundle/Resources/config/doctrine' => 'Vendor\\Package\\MyBundle\\MultiModel\\SubModel'
-        )));
+                '/path/to/vendor/package/MyBundle/Resources/config/doctrine' => 'Vendor\\Package\\MyBundle\\MultiModel\\SubModel'
+            ),  'Vendor\\Package\\MyBundle\\MultiModel\\SubModel\\Model'
+        ));
     }
 
     public function getMetadataInfo()
@@ -162,12 +163,12 @@ class GenerateMultiModelCommandTest extends WebTestCase
                     ),
                     'models' => array(
                         array(
-                            'class'   => 'Pok\Bundle\DoctrineMultiBundle\Tests\DependencyInjection\Fixtures\Bundles\XmlBundle\Entity\Test',
+                            'name'    => 'Pok\Bundle\DoctrineMultiBundle\Tests\DependencyInjection\Fixtures\Bundles\XmlBundle\Entity\Test',
                             'manager' => 'entity',
                             'fields'  => array('name')
                         ),
                         array(
-                            'class'   => 'Pok\Bundle\DoctrineMultiBundle\Tests\DependencyInjection\Fixtures\Bundles\XmlBundle\Document\Test',
+                            'name'    => 'Pok\Bundle\DoctrineMultiBundle\Tests\DependencyInjection\Fixtures\Bundles\XmlBundle\Document\Test',
                             'manager' => 'document',
                             'fields'  => array('profileContent')
                         )

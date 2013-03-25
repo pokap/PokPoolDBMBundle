@@ -75,7 +75,7 @@ class GenerateMultiModelCommand extends ContainerAwareCommand
         foreach ($data['models'] as $model) {
 
             $managers[$model['manager']] = array(
-                'namespace' => '\\' . $model['class'],
+                'namespace' => '\\' . $model['name'],
                 'methods'   => array()
             );
 
@@ -85,7 +85,7 @@ class GenerateMultiModelCommand extends ContainerAwareCommand
 
             $pattern = self::patternDeclared($model['fields']);
 
-            $refl = new \ReflectionClass($model['class']);
+            $refl = new \ReflectionClass($model['name']);
             foreach ($refl->getMethods() as $method) {
                 if (!$method->isPublic() || $method->isStatic() || $method->isConstructor() || $method->isDestructor() || $method->isAbstract()) {
                     continue;
@@ -168,7 +168,7 @@ class GenerateMultiModelCommand extends ContainerAwareCommand
             if (strpos($className, $namespace) === 0) {
                 $result = $this->getMetadata($driver->getElement($className));
 
-                $result['dir'] = $this->getDirectory($driver->getLocator()->getNamespacePrefixes());
+                $result['dir'] = $this->getDirectory($driver->getLocator()->getNamespacePrefixes(), $className);
 
                 return $result;
             }
@@ -195,7 +195,7 @@ class GenerateMultiModelCommand extends ContainerAwareCommand
 
         foreach ($xml->model as $model) {
             $definition = array(
-                'class'   => (string) $model['class'],
+                'name'   => (string) $model['name'],
                 'manager' => (string) $model['manager'],
                 'fields'  => array()
             );
@@ -221,15 +221,20 @@ class GenerateMultiModelCommand extends ContainerAwareCommand
     }
 
     /**
-     * @param array $prefixes
+     * @param array  $prefixes
+     * @param string $className
      *
      * @return string
      *
      * @throws \RuntimeException
      */
-    private function getDirectory(array $prefixes)
+    private function getDirectory(array $prefixes, $className)
     {
         foreach ($prefixes as $dir => $namespace) {
+            if (0 !== strpos($className, $namespace)) {
+                continue;
+            }
+
             $dir = substr($dir, 0, strrpos($dir, 'Bundle' . DIRECTORY_SEPARATOR) + 7);
 
             $namespace = substr($namespace, strrpos($namespace, 'Bundle\\') + 7);
