@@ -2,11 +2,18 @@
 
 namespace MultiModel;
 
-class Test
+class User
 {
     private $entity;
-
     private $document;
+
+    private $address;
+
+    public function __construct()
+    {
+        $this->entity = new \Entity\User();
+        $this->document = new \Document\User();
+    }
 
     public function getId()
     {
@@ -21,6 +28,8 @@ class Test
     public function setName($name)
     {
         $this->entity->setName($name);
+
+        return $this;
     }
 
     public function getProfileContent()
@@ -31,5 +40,19 @@ class Test
     public function setProfileContent($profileContent)
     {
         $this->document->setProfileContent($profileContent);
+
+        return $this;
+    }
+
+    public function getAddress()
+    {
+        return $this->address;
+    }
+
+    public function setAddress(Address $address)
+    {
+        $this->address = $address;
+
+        return $this;
     }
 }

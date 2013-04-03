@@ -1,0 +1,15 @@
+<?xml version="1.0" ?>
+
+<multi-model model="MultiModel\Address">
+    <model-reference manager="entity" field="dataId">
+        <reference manager="document" field="id" />
+    </model-reference>
+
+    <model manager="entity" name="Entity\Address" />
+
+    <model manager="document" name="Document\Address">
+        <field name="city" />
+    </model>
+
+    <relation-many field="users" target-model="MultiModel\User" manager-reference="entity" field-reference="userId" />
+</multi-model>

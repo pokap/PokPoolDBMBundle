@@ -7,7 +7,7 @@ use Pok\Bundle\DoctrineMultiBundle\ModelManager;
 /**
  * Base manager for doctrine multi-model
  */
-abstract class BaseManager
+class BaseManager
 {
     /**
      * @var ModelManager
@@ -34,11 +34,11 @@ abstract class BaseManager
     /**
      * Returns a new non-managed model.
      *
-     * @return mixed
+     * @return object
      */
     public function create()
     {
-        return $this->manager->getClassMetadata($this->class)->newInstance();
+        return new $this->class;
     }
 
     /**

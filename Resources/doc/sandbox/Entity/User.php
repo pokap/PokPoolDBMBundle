@@ -2,8 +2,9 @@
 
 namespace Entity;
 
-class Test
+class User
 {
     private $id;
+    private $addressId;
     private $name;
 }
