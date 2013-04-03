@@ -26,7 +26,7 @@ class ClassMetadata extends ClassMetadataInfo
     /**
      * {@inheritDoc}
      */
-    public function addModel($field, $modelName, array $subFields)
+    public function addModel($field, $modelName, array $subFields, $repository_method = null)
     {
         if (!$this->reflClass->hasProperty($field)) {
             return;
@@ -34,7 +34,7 @@ class ClassMetadata extends ClassMetadataInfo
 
         $this->reflFields[$field] = self::retrieveReflAttr($this->reflClass, $field);
 
-        parent::addModel($field, $modelName, $subFields);
+        parent::addModel($field, $modelName, $subFields, $repository_method);
     }
 
     /**

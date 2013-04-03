@@ -78,7 +78,7 @@ class XmlDriver extends FileDriver
             }
         }
 
-        $class->addModel((string) $model['manager'], (string) $model['name'], $fields);
+        $class->addModel((string) $model['manager'], (string) $model['name'], $fields, (isset($model['repository-method'])? (string) $model['repository-method'] : null));
     }
 
     /**

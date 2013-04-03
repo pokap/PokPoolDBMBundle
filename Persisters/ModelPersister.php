@@ -74,6 +74,10 @@ class ModelPersister
         $result[$identifier['manager']] = $managers[$identifier['manager']]->getRepository($models[$identifier['manager']])->findOneBy($criteria);
         unset($models[$identifier['manager']]);
 
+        if (!$result[$identifier['manager']]) {
+            return null;
+        }
+
         $id = $this->class->reflIdFields[$identifier['manager']]->getValue($result[$identifier['manager']]);
 
         foreach ($models as $manager => $model) {
@@ -112,15 +116,30 @@ class ModelPersister
             $ids[] = $id;
         }
 
+        if (empty($ids)) {
+            return null;
+        }
+
         unset($models[$identifier['manager']]);
 
         foreach ($models as $manager => $model) {
-            $reflId = $this->class->reflIdFields[$identifier['manager']];
+            $reflId     = $this->class->reflIdFields[$identifier['manager']];
+            $methodFind = $this->class->getFieldMappingValue($manager, 'repository-method');
 
-            foreach ($managers[$manager]->getRepository($model)->findBy(array($identifier['field'] => $ids)) as $object) {
-                $id = $reflId->getValue($object);
+            if ($methodFind) {
+                foreach ($managers[$manager]->getRepository($model)->$methodFind($ids) as $object) {
+                    $id = $reflId->getValue($object);
 
-                $data[$id][$manager] = $object;
+                    $data[$id][$manager] = $object;
+                }
+            } else {
+                foreach ($ids as $id) {
+                    $object = $managers[$manager]->getRepository($model)->findOneBy(array($identifier['field'] => $id));
+
+                    $id = $reflId->getValue($object);
+
+                    $data[$id][$manager] = $object;
+                }
             }
         }
 

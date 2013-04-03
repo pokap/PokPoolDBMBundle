@@ -29,9 +29,9 @@
     <xsd:sequence>
       <xsd:element name="field" type="element" minOccurs="1" maxOccurs="unbounded" />
     </xsd:sequence>
-
     <xsd:attribute name="manager" type="xsd:string" />
     <xsd:attribute name="name" type="xsd:string" />
+    <xsd:attribute name="repository-method" type="xsd:string" />
   </xsd:complexType>
 
   <xsd:complexType name="element">
