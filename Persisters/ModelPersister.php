@@ -108,14 +108,13 @@ class ModelPersister
         }
 
         $data = array();
-        $ids = array();
         foreach ($managers[$identifier['manager']]->getRepository($models[$identifier['manager']])->findBy($criteria, $orderBy, $limit, $offset) as $object) {
             $id = $this->class->reflIdFields[$identifier['manager']]->getValue($object);
 
             $data[$id][$identifier['manager']] = $object;
-            $ids[] = $id;
         }
 
+        $ids = array_keys($data);
         if (empty($ids)) {
             return null;
         }
@@ -123,7 +122,7 @@ class ModelPersister
         unset($models[$identifier['manager']]);
 
         foreach ($models as $manager => $model) {
-            $reflId     = $this->class->reflIdFields[$identifier['manager']];
+            $reflId     = $this->class->reflIdFields[$manager];
             $methodFind = $this->class->getFieldMappingValue($manager, 'repository-method');
 
             if ($methodFind) {
@@ -133,6 +132,8 @@ class ModelPersister
                     $data[$id][$manager] = $object;
                 }
             } else {
+                trigger_error(sprintf('findOneBy in ModelPersister::loadAll context is depreciate. Define repository-method for "%s" manager model, see mapping for "%s".', $manager, $this->class->name), E_USER_DEPRECATED);
+
                 foreach ($ids as $id) {
                     $object = $managers[$manager]->getRepository($model)->findOneBy(array($identifier['field'] => $id));
 
