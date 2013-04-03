@@ -32,7 +32,7 @@ Mapping:
 <multi-model model="MultiModel\User" repository-class="Repository\UserRepository">
     <model-reference manager="odm" field="id" />
 
-    <model manager="orm" name="Entity\User">
+    <model manager="orm" name="Entity\User" repository-method="findByIds">
         <field name="name" />
     </model>
 

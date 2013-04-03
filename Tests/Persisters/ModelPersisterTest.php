@@ -12,7 +12,7 @@ class ModelPersisterTest extends \PHPUnit_Framework_TestCase
     {
         $metadata = new \Pok\Bundle\DoctrineMultiBundle\Mapping\ClassMetadata(__NAMESPACE__ . '\\ModelTest');
         $metadata->addModel('entity', __NAMESPACE__ . '\\EntityTest', array());
-        $metadata->addModel('document', __NAMESPACE__ . '\\DocumentTest', array());
+        $metadata->addModel('document', __NAMESPACE__ . '\\DocumentTest', array(), 'findByIds');
         $metadata->setIdentifier('entity', 'id');
 
         $metadataFactory = $this->getMock('Pok\\Bundle\\DoctrineMultiBundle\\Mapping\\ClassMetadataFactory', array('getMetadataFor', 'setModelManager'));
@@ -107,11 +107,11 @@ class DocumentRepository {
         return $document;
     }
 
-    public function findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null) {
+    public function findByIds(array $ids) {
         self::$count++;
 
         $list = array();
-        foreach ($criteria['id'] as $id) {
+        foreach ($ids as $id) {
             $document = new DocumentTest;
             $document->id = $id;
 

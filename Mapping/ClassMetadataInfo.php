@@ -92,6 +92,24 @@ class ClassMetadataInfo implements \Doctrine\Common\Persistence\Mapping\ClassMet
     }
 
     /**
+     * Returns configuration mapping value by manager name.
+     *
+     * @param string $manager
+     * @param string $key
+     * @param mixed  $default (optional)
+     *
+     * @return mixed
+     */
+    public function getFieldMappingValue($manager, $key, $default = null)
+    {
+        if (!isset($this->fieldMappings[$manager][$key])) {
+            return $default;
+        }
+
+        return $this->fieldMappings[$manager][$key];
+    }
+
+    /**
      * Get identifier field names of this class.
      *
      * @return array
@@ -155,12 +173,13 @@ class ClassMetadataInfo implements \Doctrine\Common\Persistence\Mapping\ClassMet
     /**
      * Map fields per model.
      */
-    public function addModel($field, $modelName, array $subFields)
+    public function addModel($field, $modelName, array $subFields, $repository_method)
     {
         $mapping = array(
-            'modelName' => $modelName,
-            'manager'   => $field,
-            'fields'    => $subFields
+            'modelName'         => $modelName,
+            'manager'           => $field,
+            'fields'            => $subFields,
+            'repository-method' => $repository_method
         );
 
         $mapping['fieldName'] =& $mapping['manager'];
