@@ -18,6 +18,11 @@ use Pok\Bundle\DoctrineMultiBundle\Util\Reflector;
 class GenerateMultiModelCommand extends ContainerAwareCommand
 {
     /**
+     * @var array
+     */
+    protected static $listPrefixesGetter = array('get','is','has','all','check','can');
+
+    /**
      * {@inheritdoc}
      */
     protected function configure()
@@ -99,7 +104,7 @@ class GenerateMultiModelCommand extends ContainerAwareCommand
                 $arg = array(
                     'comment'   => $method->getDocComment(),
                     'name'      => $method->getName(),
-                    'type'      => in_array($matches[1], array('get','is','has','all')) ? 'getter' : 'setter',
+                    'type'      => in_array($matches[1], static::$listPrefixesGetter) ? 'getter' : 'setter',
                     'arguments' => Reflector::parameters($method->getParameters())
                 );
 
