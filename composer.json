@@ -1,35 +1,30 @@
 {
-    "name": "pokap/doctrine-multi-bundle",
+    "name": "pokap/pool-dbm-bundle",
     "type": "symfony-bundle",
     "description": "Symfony2 Multi Doctrine Repositories Bundle",
-    "keywords": ["multi", "repositories", "symfony"],
+    "keywords": ["multi", "repositories", "symfony", "doctrine", "dbms"],
     "license": "MIT",
     "authors": [
         {"name": "Florent Denis", "email": "dflorent.pokap@gmail.com"}
     ],
     "require": {
         "php": ">=5.3.2",
-        "symfony/class-loader":         ">=2.1,<2.3-dev",
-        "symfony/config":               ">=2.1,<2.3-dev",
-        "symfony/console":              ">=2.1,<2.3-dev",
-        "symfony/dependency-injection": ">=2.1,<2.3-dev",
-        "symfony/finder":               ">=2.1,<2.3-dev",
-        "symfony/http-kernel":          ">=2.1,<2.3-dev",
-        "symfony/yaml":                 ">=2.1,<2.3-dev",
-        "symfony/doctrine-bridge":      ">=2.1,<2.3-dev",
-        "symfony/framework-bundle":     ">=2.1,<2.3-dev"
+        "pokap/pool-dbm": "*",
+        "symfony/framework-bundle": "2.*",
+        "symfony/doctrine-bridge": "2.*",
+        "symfony/console": "2.*",
+        "symfony/twig-bundle": "*"
     },
     "require-dev": {
-        "symfony/twig-bundle":  ">=2.1,<2.3-dev",
-        "symfony/form":         ">=2.1,<2.3-dev"
+        "symfony/finder": "*"
     },
     "minimum-stability": "dev",
     "autoload": {
         "psr-0": {
-            "Pok\\Bundle\\DoctrineMultiBundle": ""
+            "Pok\\Bundle\\PoolDBMBundle": ""
         }
     },
-    "target-dir": "Pok/Bundle/DoctrineMultiBundle",
+    "target-dir": "Pok/Bundle/PoolDBMBundle",
     "extra": {
         "branch-alias": {
             "dev-master": "1.0-dev"

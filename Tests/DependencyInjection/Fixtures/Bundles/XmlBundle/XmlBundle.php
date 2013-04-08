@@ -1,6 +1,6 @@
 <?php
 
-namespace Pok\Bundle\DoctrineMultiBundle\Tests\DependencyInjection\Fixtures\Bundles\XmlBundle;
+namespace Pok\Bundle\PoolDBMBundle\Tests\DependencyInjection\Fixtures\Bundles\XmlBundle;
 
 use Symfony\Component\HttpKernel\Bundle\Bundle;
 

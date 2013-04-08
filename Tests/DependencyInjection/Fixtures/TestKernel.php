@@ -3,7 +3,7 @@
 use Symfony\Component\HttpKernel\Kernel;
 use Symfony\Component\Config\Loader\LoaderInterface;
 
-use Pok\Bundle\DoctrineMultiBundle as Pok;
+use Pok\Bundle\PoolDBMBundle as Pok;
 
 class TestKernel extends Kernel
 {
@@ -14,7 +14,7 @@ class TestKernel extends Kernel
             new Symfony\Bundle\TwigBundle\TwigBundle(),
 
             new Pok\Tests\DependencyInjection\Fixtures\Bundles\XmlBundle\XmlBundle(),
-            new Pok\PokDoctrineMultiBundle(),
+            new Pok\PokPoolDBMBundle(),
         );
 
         return $bundles;

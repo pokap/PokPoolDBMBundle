@@ -1,6 +1,6 @@
 <?php
 
-namespace Pok\Bundle\DoctrineMultiBundle\Tests\DependencyInjection\Fixtures\Bundles\XmlBundle\Document;
+namespace Pok\Bundle\PoolDBMBundle\Tests\DependencyInjection\Fixtures\Bundles\XmlBundle\Document;
 
 class Test
 {

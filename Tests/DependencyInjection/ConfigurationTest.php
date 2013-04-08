@@ -1,11 +1,11 @@
 <?php
 
-namespace Pok\Bundle\DoctrineMultiBundle\Tests\DependencyInjection;
+namespace Pok\Bundle\PoolDBMBundle\Tests\DependencyInjection;
 
 use Symfony\Component\Config\Definition\Processor;
 use Symfony\Component\Yaml\Yaml;
 
-use Pok\Bundle\DoctrineMultiBundle\DependencyInjection\Configuration;
+use Pok\Bundle\PoolDBMBundle\DependencyInjection\Configuration;
 
 class ConfigurationTest extends \PHPUnit_Framework_TestCase
 {
@@ -71,7 +71,7 @@ class ConfigurationTest extends \PHPUnit_Framework_TestCase
     public function fullConfigurationProvider()
     {
        $yaml = Yaml::parse(__DIR__.'/Fixtures/config/yaml/full.yml');
-       $yaml = $yaml['pok_doctrine_multi'];
+       $yaml = $yaml['pok_pool_dbm'];
 
        return array(
            array($yaml),

@@ -1,6 +1,6 @@
 <?php
 
-namespace Pok\Bundle\DoctrineMultiBundle\Command;
+namespace Pok\Bundle\PoolDBMBundle\Command;
 
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
@@ -8,7 +8,7 @@ use Symfony\Component\Filesystem\Filesystem;
 
 use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
 
-use Pok\Bundle\DoctrineMultiBundle\Util\Reflector;
+use Pok\PoolDBM\Util\Reflector;
 
 /**
  * Generate multi-model with models definitions.
@@ -22,10 +22,8 @@ class GenerateMultiModelCommand extends ContainerAwareCommand
      */
     protected function configure()
     {
-        $this
-            ->setName('pok:doctrine:multi:generate')
-            ->setDescription('Generate multi-model')
-        ;
+        $this->setName('pok:pool-dbm:model:generate');
+        $this->setDescription('Generate multi-model');
     }
 
     /**
@@ -117,11 +115,11 @@ class GenerateMultiModelCommand extends ContainerAwareCommand
     }
 
     /**
-     * @return \Pok\Bundle\DoctrineMultiBundle\ModelManager
+     * @return \Pok\PoolDBM\ModelManager
      */
     protected function getModelManager()
     {
-        return $this->getContainer()->get('pok.doctrine_multi.manager');
+        return $this->getContainer()->get('pok.pool_dbm.manager');
     }
 
     /**
@@ -137,7 +135,7 @@ class GenerateMultiModelCommand extends ContainerAwareCommand
      */
     protected function getTemplate()
     {
-        return $this->getContainer()->getParameter('pok.doctrine_multi.command.view');
+        return $this->getContainer()->getParameter('pok.pool_dbm.command.view');
     }
 
     /**

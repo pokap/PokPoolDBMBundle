@@ -1,13 +1,13 @@
 <?php
 
-namespace Pok\Bundle\DoctrineMultiBundle\Tests\Command;
+namespace Pok\Bundle\PoolDBMBundle\Tests\Command;
 
 use Symfony\Component\Console\Tester\CommandTester;
 use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Bundle\FrameworkBundle\Console\Application;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
-use Pok\Bundle\DoctrineMultiBundle\Command\GenerateMultiModelCommand;
+use Pok\Bundle\PoolDBMBundle\Command\GenerateMultiModelCommand;
 
 class GenerateMultiModelCommandTest extends WebTestCase
 {
@@ -19,7 +19,7 @@ class GenerateMultiModelCommandTest extends WebTestCase
         $application = new Application($kernel);
         $application->add(new GenerateMultiModelCommand());
 
-        $command = $application->find('pok:doctrine:multi:generate');
+        $command = $application->find('pok:pool-dbm:model:generate');
 
         $dialog = $this->getMock('Symfony\Component\Console\Helper\DialogHelper', array('askConfirmation'));
         $dialog->expects($this->any())->method('askConfirmation')->will($this->returnValue(true));
@@ -38,7 +38,7 @@ class GenerateMultiModelCommandTest extends WebTestCase
      */
     public function testBuildParameters($namespace, $metadata)
     {
-        $refl = new \ReflectionClass('Pok\\Bundle\\DoctrineMultiBundle\\Command\\GenerateMultiModelCommand');
+        $refl = new \ReflectionClass('Pok\\Bundle\\PoolDBMBundle\\Command\\GenerateMultiModelCommand');
         $method = $refl->getMethod('buildParameters');
         $method->setAccessible(true);
 
@@ -98,7 +98,7 @@ class GenerateMultiModelCommandTest extends WebTestCase
 
     public function testPatternDeclared()
     {
-        $refl = new \ReflectionClass('Pok\\Bundle\\DoctrineMultiBundle\\Command\\GenerateMultiModelCommand');
+        $refl = new \ReflectionClass('Pok\\Bundle\\PoolDBMBundle\\Command\\GenerateMultiModelCommand');
         $method = $refl->getMethod('patternDeclared');
         $method->setAccessible(true);
 
@@ -113,7 +113,7 @@ class GenerateMultiModelCommandTest extends WebTestCase
      */
     public function testGetElement($namespace, $metadata)
     {
-        $refl = new \ReflectionClass('Pok\\Bundle\\DoctrineMultiBundle\\Command\\GenerateMultiModelCommand');
+        $refl = new \ReflectionClass('Pok\\Bundle\\PoolDBMBundle\\Command\\GenerateMultiModelCommand');
         $method = $refl->getMethod('getElement');
         $method->setAccessible(true);
 
@@ -125,7 +125,7 @@ class GenerateMultiModelCommandTest extends WebTestCase
             $this->assertEquals('Invalid drivers with "' . $className . '".', $e->getMessage());
         }
 
-        $driver = $this->getMockBuilder('Pok\\Bundle\\DoctrineMultiBundle\\Mapping\\Driver\\XmlDriver')->disableOriginalConstructor()->getMock();;
+        $driver = $this->getMockBuilder('Pok\\Bundle\\PoolDBMBundle\\Mapping\\Driver\\XmlDriver')->disableOriginalConstructor()->getMock();;
         $driver->expects($this->any())->method('getElement')->will($this->returnValue(simplexml_load_file(__DIR__ . '/../DependencyInjection/Fixtures/Bundles/XmlBundle/Resources/config/doctrine/Test.multi.xml')));
         $driver->expects($this->any())->method('getLocator')->will($this->returnValue(new Locator($namespace . '\MultiModel')));
 
@@ -134,7 +134,7 @@ class GenerateMultiModelCommandTest extends WebTestCase
 
     public function testGetDirectory()
     {
-        $refl = new \ReflectionClass('Pok\\Bundle\\DoctrineMultiBundle\\Command\\GenerateMultiModelCommand');
+        $refl = new \ReflectionClass('Pok\\Bundle\\PoolDBMBundle\\Command\\GenerateMultiModelCommand');
         $method = $refl->getMethod('getDirectory');
         $method->setAccessible(true);
 
@@ -154,21 +154,21 @@ class GenerateMultiModelCommandTest extends WebTestCase
     {
         return array(
             array(
-                'Pok\Bundle\DoctrineMultiBundle\Tests\DependencyInjection\Fixtures\Bundles\XmlBundle',
+                'Pok\Bundle\PoolDBMBundle\Tests\DependencyInjection\Fixtures\Bundles\XmlBundle',
                 array(
-                    'class' => 'Pok\Bundle\DoctrineMultiBundle\Tests\DependencyInjection\Fixtures\Bundles\XmlBundle\MultiModel\Test',
+                    'class' => 'Pok\Bundle\PoolDBMBundle\Tests\DependencyInjection\Fixtures\Bundles\XmlBundle\MultiModel\Test',
                     'identifier' => array(
                         'manager' => 'entity',
                         'field'   => 'id'
                     ),
                     'models' => array(
                         array(
-                            'name'    => 'Pok\Bundle\DoctrineMultiBundle\Tests\DependencyInjection\Fixtures\Bundles\XmlBundle\Entity\Test',
+                            'name'    => 'Pok\Bundle\PoolDBMBundle\Tests\DependencyInjection\Fixtures\Bundles\XmlBundle\Entity\Test',
                             'manager' => 'entity',
                             'fields'  => array('name')
                         ),
                         array(
-                            'name'    => 'Pok\Bundle\DoctrineMultiBundle\Tests\DependencyInjection\Fixtures\Bundles\XmlBundle\Document\Test',
+                            'name'    => 'Pok\Bundle\PoolDBMBundle\Tests\DependencyInjection\Fixtures\Bundles\XmlBundle\Document\Test',
                             'manager' => 'document',
                             'fields'  => array('profileContent')
                         )

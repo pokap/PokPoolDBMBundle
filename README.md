@@ -1,9 +1,9 @@
-DoctrineMultiBundle
+PokPoolDBMBundle
 ===================
 
 **Requires** at least *PHP 5.3.3* with Symfony 2 library. Compatible PHP 5.4 too.
 
-[![Build Status](https://travis-ci.org/pokap/DoctrineMultiBundle.png?branch=master)](https://travis-ci.org/pokap/DoctrineMultiBundle)
+[![Build Status](https://travis-ci.org/pokap/PokPoolDBMBundle.png?branch=master)](https://travis-ci.org/pokap/PokPoolDBMBundle)
 
 Usage
 -------------
@@ -12,7 +12,7 @@ By default, the object is initialized with values defined in the configuration:
 
 ``` yaml
 
-pok_doctrine_multi:
+pok_pool_dbm:
     managers:
         orm:
             id: doctrine.orm.entity_manager

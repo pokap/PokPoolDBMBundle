@@ -1,12 +1,12 @@
 <?php
 
-namespace Pok\Bundle\DoctrineMultiBundle\Tests\DependencyInjection;
+namespace Pok\Bundle\PoolDBMBundle\Tests\DependencyInjection;
 
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Loader\XmlFileLoader;
 
-class XmlDoctrineMultiExtensionTest extends AbstractDoctrineMultiExtensionTest
+class XmlPoolDBMExtensionTest extends AbstractDoctrineMultiExtensionTest
 {
     protected function loadFromFile(ContainerBuilder $container, $file)
     {

@@ -1,6 +1,6 @@
 <?php
 
-namespace Pok\Bundle\DoctrineMultiBundle\DependencyInjection;
+namespace Pok\Bundle\PoolDBMBundle\DependencyInjection;
 
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Reference;
@@ -13,7 +13,7 @@ use Symfony\Bridge\Doctrine\DependencyInjection\AbstractDoctrineExtension;
  *
  * To learn more see {@link http://symfony.com/doc/current/cookbook/bundles/extension.html}
  */
-class PokDoctrineMultiExtension extends AbstractDoctrineExtension
+class PokPoolDBMExtension extends AbstractDoctrineExtension
 {
     /**
      * {@inheritDoc}
@@ -59,12 +59,13 @@ class PokDoctrineMultiExtension extends AbstractDoctrineExtension
 
         $container->setParameter($this->getObjectManagerElementName('managers'), $managers);
 
-        $manager = $container->getDefinition('pok.doctrine_multi.manager');
+        $manager = $container->getDefinition('pok.pool_dbm.manager.pool');
         foreach ($managers as $name => $service) {
-            $manager->addMethodCall('setManager', array($name, new Reference($service)));
+            $manager->addMethodCall('addManager', array($name, new Reference($service)));
         }
 
-        $manager->addMethodCall('setMetadataDriverImpl', array(new Reference(sprintf('pok.doctrine_multi.%s_metadata_driver', $config['name']))));
+        $manager = $container->getDefinition('pok.pool_dbm.manager');
+        $manager->addMethodCall('setMetadataDriverImpl', array(new Reference(sprintf('pok.pool_dbm.%s_metadata_driver', $config['name']))));
     }
 
     /**
@@ -96,6 +97,6 @@ class PokDoctrineMultiExtension extends AbstractDoctrineExtension
      */
     protected function getObjectManagerElementName($name)
     {
-        return 'pok.doctrine_multi.' . $name;
+        return 'pok.pool_dbm.' . $name;
     }
 }

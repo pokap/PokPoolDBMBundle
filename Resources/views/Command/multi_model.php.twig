@@ -18,6 +18,32 @@ class {{ model_name }}
 {% endfor %}
     }
 {% for name, refl in managers %}
+    /**
+    * Sets model of {{ name }}.
+    *
+    * @param {{ refl.namespace }} ${{ name }}
+    *
+    * @return {{ model_name }}
+    */
+    public function set{{ name|capitalize }}({{ refl.namespace }} ${{ name }})
+    {
+        $this->{{ name }} = ${{ name }};
+
+        return $this;
+    }
+
+    /**
+     * Returns model instance of {{ name }}.
+     *
+     * @return {{ refl.namespace }}
+     */
+    public function get{{ name|capitalize }}()
+    {
+        return $this->{{ name }};
+    }
+{% endfor %}
+{# setter/getter #}
+{% for name, refl in managers %}
 {% for method in refl.methods %} 
 {% if method.comment is not empty %}
     {{ method.comment }}

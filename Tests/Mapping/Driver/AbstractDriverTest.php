@@ -1,6 +1,6 @@
 <?php
 
-namespace Pok\Bundle\DoctrineMultiBundle\Tests\Mapping\Driver;
+namespace Pok\Bundle\PoolDBMBundle\Tests\Mapping\Driver;
 
 use Doctrine\Common\Persistence\Mapping\Driver\FileDriver;
 

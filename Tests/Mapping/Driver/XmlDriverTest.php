@@ -1,8 +1,8 @@
 <?php
 
-namespace Pok\Bundle\DoctrineMultiBundle\Tests\Mapping\Driver;
+namespace Pok\Bundle\PoolDBMBundle\Tests\Mapping\Driver;
 
-use Pok\Bundle\DoctrineMultiBundle\Mapping\Driver\XmlDriver;
+use Pok\Bundle\PoolDBMBundle\Mapping\Driver\XmlDriver;
 
 class XmlDriverTest extends AbstractDriverTest
 {

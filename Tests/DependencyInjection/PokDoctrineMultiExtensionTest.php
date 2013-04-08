@@ -1,13 +1,12 @@
 <?php
 
-namespace Pok\Bundle\DoctrineMultiBundle\Tests\DependencyInjection;
+namespace Pok\Bundle\PoolDBMBundle\Tests\DependencyInjection;
 
-use Symfony\Component\Config\Definition\Processor;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 
-use Pok\Bundle\DoctrineMultiBundle\DependencyInjection\PokDoctrineMultiExtension;
+use Pok\Bundle\PoolDBMBundle\DependencyInjection\PokPoolDBMExtension;
 
-class PokDoctrineMultiExtensionTest extends \PHPUnit_Framework_TestCase
+class PokPoolDBMExtensionTest extends \PHPUnit_Framework_TestCase
 {
     public function testParameterAndAliasManagers()
     {
@@ -21,16 +20,16 @@ class PokDoctrineMultiExtensionTest extends \PHPUnit_Framework_TestCase
             'odm' => array('id' => 'doctrine_mongodb.odm.document_manager'),
         );
 
-        $loader = new PokDoctrineMultiExtension();
+        $loader = new PokPoolDBMExtension();
         $loader->load(array(array('managers' => $value)), $container);
 
         $alias = array();
         foreach ($value as $name => $data) {
-            $alias[$name] = 'pok.doctrine_multi.manager.'.$name;
+            $alias[$name] = 'pok.pool_dbm.manager.'.$name;
             $this->assertEquals($data['id'], $container->getAlias($alias[$name]));
         }
 
-        $this->assertEquals($alias, $container->getParameter('pok.doctrine_multi.managers'));
+        $this->assertEquals($alias, $container->getParameter('pok.pool_dbm.managers'));
     }
 }
 

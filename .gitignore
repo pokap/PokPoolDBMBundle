@@ -1,4 +1,5 @@
 nbproject
+.idea
 vendor
 
 Tests/DependencyInjection/Fixtures/cache

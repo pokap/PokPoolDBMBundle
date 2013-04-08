@@ -11,7 +11,7 @@ framework:
 twig:
     debug: %kernel.debug%
 
-pok_doctrine_multi:
+pok_pool_dbm:
     managers:
         entity:
             id: xml.fake.entity.manager

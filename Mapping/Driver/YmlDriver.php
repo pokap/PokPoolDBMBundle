@@ -3,14 +3,14 @@
 namespace Pok\Bundle\PoolDBMBundle\Mapping\Driver;
 
 use Doctrine\Common\Persistence\Mapping\Driver\SymfonyFileLocator;
-use Pok\PoolDBM\Mapping\Driver\XmlDriver as BaseXmlDriver;
+use Pok\PoolDBM\Mapping\Driver\YmlDriver as BaseYmlDriver;
 
 /**
  * XmlDriver.
  *
  * @author Florent Denis <dflorent.pokap@gmail.com>
  */
-class XmlDriver extends BaseXmlDriver
+class YmlDriver extends BaseYmlDriver
 {
     /**
      * {@inheritDoc}
