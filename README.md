@@ -5,6 +5,8 @@ PokPoolDBMBundle
 
 [![Build Status](https://travis-ci.org/pokap/PokPoolDBMBundle.png?branch=master)](https://travis-ci.org/pokap/PokPoolDBMBundle)
 
+This bundle integrates [Pool-DBM](https://github.com/pokap/pool-dbm).
+
 Usage
 -------------
 
