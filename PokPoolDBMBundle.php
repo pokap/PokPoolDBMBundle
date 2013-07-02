@@ -21,11 +21,22 @@ class PokPoolDBMBundle extends Bundle
 
 //        parent::registerCommands($application);
 
-        $application->setHelperSet(ConsoleRunner::createHelperSet(
+        $application_helper = $application->getHelperSet();
+
+        $helpers = ConsoleRunner::createHelpers(
             $this->container->get('pok.pool_dbm.manager'),
             null,
             $application->getKernel()->getCacheDir()
-        ));
+        );
+
+        foreach ($helpers as $name => $helper) {
+            if ($application_helper->has($name)) {
+                continue;
+            }
+
+            $application_helper->set($helper);
+        }
+
         ConsoleRunner::addDefaultCommands($application);
     }
 }
