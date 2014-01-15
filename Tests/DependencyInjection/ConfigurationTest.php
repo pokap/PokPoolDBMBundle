@@ -19,6 +19,7 @@ class ConfigurationTest extends \PHPUnit_Framework_TestCase
             'managers'     => array(),
             'auto_mapping' => false,
             'mappings'     => array(),
+            'debug'        => false,
         );
 
         foreach ($defaults as $key => $default) {
@@ -45,6 +46,7 @@ class ConfigurationTest extends \PHPUnit_Framework_TestCase
         $options = $processor->processConfiguration($configuration, array($config));
 
         $expected = array(
+            'debug'        => false,
             'managers'     => array(
                 'foo' => array('id' => 'bar.service')
             ),

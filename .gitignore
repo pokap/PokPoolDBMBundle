@@ -1,6 +1,5 @@
-nbproject
-.idea
 vendor
+composer.lock
 
 Tests/DependencyInjection/Fixtures/cache
 Tests/DependencyInjection/Fixtures/logs

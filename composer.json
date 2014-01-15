@@ -8,8 +8,8 @@
         {"name": "Florent Denis", "email": "dflorent.pokap@gmail.com"}
     ],
     "require": {
-        "php": ">=5.3.2",
-        "pokap/pool-dbm": "*",
+        "php": ">=5.3.3",
+        "pokap/pool-dbm": "1.*",
         "symfony/framework-bundle": "2.*",
         "symfony/doctrine-bridge": "2.*"
     },

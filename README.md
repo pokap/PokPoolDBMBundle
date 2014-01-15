@@ -15,6 +15,7 @@ By default, the object is initialized with values defined in the configuration:
 ``` yaml
 
 pok_pool_dbm:
+    debug: %kernel.debug%
     managers:
         orm:
             id: doctrine.orm.entity_manager

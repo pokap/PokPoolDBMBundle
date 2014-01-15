@@ -22,6 +22,7 @@ class Configuration implements ConfigurationInterface
 
         $rootNode
             ->children()
+                ->scalarNode('debug')->defaultFalse()->end()
                 ->arrayNode('managers')
                     ->useAttributeAsKey('name')
                     ->prototype('array')
@@ -36,7 +37,7 @@ class Configuration implements ConfigurationInterface
                     ->prototype('array')
                         ->beforeNormalization()
                             ->ifString()
-                            ->then(function($v) { return array ('type' => $v); })
+                            ->then(function ($v) { return array ('type' => $v); })
                         ->end()
                         ->treatNullLike(array())
                         ->treatFalseLike(array('mapping' => false))

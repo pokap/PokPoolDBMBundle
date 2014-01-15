@@ -31,9 +31,30 @@ class PokPoolDBMExtension extends AbstractDoctrineExtension
         $this->aliasMap = array();
         $config['name'] = 'default';
 
+        // pass to debug mode
+        if ($config['debug']) {
+            $this->applyDebugMode($container);
+        }
+
         $this->loadMappingInformation($config, $container);
         $this->registerMappingDrivers($config, $container);
         $this->configureManagers($config, $container);
+    }
+
+    /**
+     * Apply class debug if exists.
+     *
+     * @param ContainerBuilder $container
+     */
+    public function applyDebugMode(ContainerBuilder $container)
+    {
+        foreach ($container->getDefinitions() as $definition) {
+            $class_debug = str_replace('.class%', '.class.debug%', $definition->getClass());
+
+            if ($container->hasParameter(substr($class_debug, 1, -1))) {
+                $definition->setClass($class_debug);
+            }
+        }
     }
 
     /**
